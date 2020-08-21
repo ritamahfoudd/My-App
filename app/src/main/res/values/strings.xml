@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">MyApp</string>
+    <string name="app_logo">App Logo</string>
+
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+
+    <string name="pass">Password</string>
+    <string name="user">Username</string>
+    <string name="rememberMe">Remember Me</string>
+
+    <string name="timer">Timer</string>
+    <string name="list">List</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="logoutAlert">Are you sure you want to log out?</string>
+    <string name="exitAlert">Are you sure you want to exit?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="loading">Loading …</string>
+    <string name="itemDisplay">Item Display</string>
+    <string name="thankyou">Thank you for using MyApp!</string>
+    <string name="welcome">Welcome to MyApp!</string>
+    <string name="dateOfLogin">Date of Login</string>
+    <string name="timeSpent">Time spent in screen</string>
+    <string name="itemDetails">Details of current item</string>
+
+    <string name="note1">* Colored tasks are completed</string>
+    <string name="note2">* Click item to view details</string>
+    <string name="note3">* Swipe to refresh</string>
+
+    <string name="userid">User ID</string>
+    <string name="id">ID</string>
+    <string name="title">Title</string>
+    <string name="isCompleted">Is completed</string>
+    <string name="item">Item</string>
+
+</resources>

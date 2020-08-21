@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@+id/timer">
+
+    <fragment
+        android:id="@+id/timer"
+        android:name="com.example.myapp.TimerFragment"
+        android:label="@string/timer"
+        tools:layout="@layout/fragment_timer" />
+
+    <fragment
+        android:id="@+id/list"
+        android:name="com.example.myapp.ListFragment"
+        android:label="@string/list"
+        tools:layout="@layout/fragment_list" />
+
+    <fragment
+        android:id="@+id/logout"
+        android:name="com.example.myapp.LogoutFragment"
+        android:label="@string/logout"
+        tools:layout="@layout/fragment_logout" />
+
+    <fragment
+        android:id="@+id/item"
+        android:name="com.example.myapp.ItemFragment"
+        android:label="@string/item"
+        tools:layout="@layout/fragment_item">
+    </fragment>
+
+
+</navigation>
