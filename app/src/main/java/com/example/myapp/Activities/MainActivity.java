@@ -1,29 +1,38 @@
-package com.example.myapp;
+package com.example.myapp.Activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.MenuItem;
+import android.widget.Chronometer;
 
+import com.example.myapp.Fragments.TimerFragment;
+import com.example.myapp.R;
+import com.example.myapp.Utils.SessionManagement;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private static Chronometer chronometer;
+    private static boolean running;
+    private static long pauseOffset;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +41,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigationView);
+        chronometer = findViewById(R.id.chronometer);
+
+        sharedPreferences = getSharedPreferences("PrefsFile", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         init();
+
+        startChronometer();
     }
 
     private void init() {
@@ -42,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationUI.setupWithNavController(navigationView, navController);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -60,11 +76,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         if (Navigation.findNavController(this, R.id.nav_host_fragment).getCurrentDestination().getId() == R.id.timer) {
             leave();
-        } else if(Navigation.findNavController(this, R.id.nav_host_fragment).getCurrentDestination().getId() == R.id.item){
+        } else if (Navigation.findNavController(this, R.id.nav_host_fragment).getCurrentDestination().getId() == R.id.item) {
             Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.list);
         } else {
             Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.timer);
-
         }
     }
 
@@ -82,6 +97,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                SessionManagement sessionManagement = new SessionManagement(MainActivity.this);
+                if(!sessionManagement.getSession())
+                    resetChronometer();
                 finish();
             }
         });
@@ -123,4 +141,60 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(Navigation.findNavController(this, R.id.nav_host_fragment), drawerLayout);
     }
+
+    @Override
+    public void onStart() {
+        startChronometer();
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        startChronometer();
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        pauseChronometer();
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        pauseChronometer();
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        pauseChronometer();
+        super.onDestroy();
+    }
+
+    public static void resetChronometer(){
+        chronometer.stop();
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        pauseOffset = 0;
+    }
+
+    private void startChronometer() {
+        if(!running) {
+            pauseOffset = sharedPreferences.getLong("pauseOffset", 0);
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            chronometer.start();
+            running = true;
+        }
+    }
+
+    private void pauseChronometer() {
+        if(running){
+            chronometer.stop();
+            pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
+            running = false;
+            editor.putLong("pauseOffset", pauseOffset).apply();
+        }
+    }
+
+
 }

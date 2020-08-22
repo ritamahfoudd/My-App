@@ -1,4 +1,4 @@
-package com.example.myapp;
+package com.example.myapp.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.example.myapp.R;
+import com.example.myapp.Utils.SessionManagement;
 
 import java.util.Objects;
 
@@ -34,8 +37,8 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private Intent getPreferencesData() {
-        SharedPreferences sp = getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE);
-        if(sp.contains("username") && sp.contains("password") && sp.contains("rememberMe")){
+        SessionManagement sessionManagement = new SessionManagement(StartActivity.this);
+        if(sessionManagement.getSession()){
             return new Intent(StartActivity.this, MainActivity.class);
         } else {
             return new Intent(StartActivity.this, LoginActivity.class);

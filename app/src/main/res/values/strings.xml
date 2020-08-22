@@ -23,7 +23,7 @@
     <string name="thankyou">Thank you for using MyApp!</string>
     <string name="welcome">Welcome to MyApp!</string>
     <string name="dateOfLogin">Date of Login</string>
-    <string name="timeSpent">Time spent in screen</string>
+    <string name="timeSpent">Time spent in MyApp</string>
     <string name="itemDetails">Details of current item</string>
 
     <string name="note1">* Colored tasks are completed</string>

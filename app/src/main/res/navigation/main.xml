@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/timer"
-        android:name="com.example.myapp.TimerFragment"
+        android:name="com.example.myapp.Fragments.TimerFragment"
         android:label="@string/timer"
         tools:layout="@layout/fragment_timer" />
 
     <fragment
         android:id="@+id/list"
-        android:name="com.example.myapp.ListFragment"
+        android:name="com.example.myapp.Fragments.ListFragment"
         android:label="@string/list"
         tools:layout="@layout/fragment_list" />
 
     <fragment
         android:id="@+id/logout"
-        android:name="com.example.myapp.LogoutFragment"
+        android:name="com.example.myapp.Fragments.LogoutFragment"
         android:label="@string/logout"
         tools:layout="@layout/fragment_logout" />
 
     <fragment
         android:id="@+id/item"
-        android:name="com.example.myapp.ItemFragment"
+        android:name="com.example.myapp.Fragments.ItemFragment"
         android:label="@string/item"
         tools:layout="@layout/fragment_item">
     </fragment>

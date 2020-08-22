@@ -9,7 +9,7 @@
     android:padding="10sp"
     android:divider="@drawable/divider"
     android:showDividers="middle"
-    tools:context=".ItemFragment">
+    tools:context=".Fragments.ItemFragment">
 
     <TextView
         android:id="@+id/tvCurrentItem"
